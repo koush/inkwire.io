@@ -1,0 +1,162 @@
+<html>
+	<head>
+		<title>Vysor</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<script src='common/jquery-2.1.1.min.js'></script>
+		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src='common/buy.js'></script>
+    <script src='util.js'></script>
+		<script src='modal.js'></script>
+		<script src='purchase.js'></script>
+    <script src='uglify-purchase.js'></script>
+    <style>
+    .blue-icon {
+      color: #4A98E5;
+    }
+    .green-icon {
+      color: #34C109;
+    }
+    .table-column-striped tbody tr:nth-child(2n + 1) {
+        background-color: transparent;
+    }
+    .table-column-striped tbody td:nth-child(3) {
+        background-color: rgba(144, 144, 144, 0.075);
+    }
+    .table-column-striped tbody th:nth-child(3) {
+        background-color: rgba(144, 144, 144, 0.075);
+    }
+    .table-column-striped tbody td:nth-child(2), table tbody td:nth-child(3), table thead tr th:nth-child(2), table thead tr th:nth-child(3) {
+      text-align: center;
+    }
+    body {
+      padding: 16px;
+    }
+    .time-highlight {
+      color: red;
+    }
+    td {
+      font-size: 14px;
+    }
+    html, body {
+        overflow-y: visible;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="modal fade"  id="notificationModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id='modal-title'></h4>
+          </div>
+          <div class="modal-body">
+            <p id='modal-body'></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id='modal-cancel'></button>
+            <button type="button" class="btn btn-primary" id='modal-ok'></button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+		<header class="major">
+			<h2>Upgrade Vysor</h2>
+      <h4 id='used'></h4>
+		</header>
+		<section id="pricing" class="wrapper">
+			<div class="inner">
+        <section>
+          <div class="table-wrapper">
+            <table class="table table-column-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th width='30%'>Vysor</th>
+                  <th width='30%'>Vysor Pro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mirror and Control Android</td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Screenshots</td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>High Quality Mirroring</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Fullscreen Mode</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Go Wireless</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Vysor Share</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Drag and Drop Files</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+                <tr>
+                  <td>Access to <b>all</b> future features</td>
+                  <td></td>
+                  <td><span class="blue-icon fa fa-check"></span></td>
+                </tr>
+              </tbody>
+              <!-- <tfoot>
+                <tr>
+                  <td colspan="3" style='text-align: right;'>$1.99/mo or $9.99/yr</td>
+                </tr>
+              </tfoot> -->
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class='wrapper'>
+      <div class='inner'>
+        <section id='purchase-options'>
+          <div class='table-wrapper'>
+            <table class="table table-column-striped">
+              <thead>
+                <tr>
+                  <th>Vysor Pro Purchase Options</th>
+                  <th width='30%'>Price</th>
+                  <th width='30%'>Payment Method</th>
+                </tr>
+              </thead>
+              <tbody id='prices'>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <br/>
+        <div id='purchase-options-loading'>
+          <center><h4>One moment...</h4><center>
+        </div>
+      </div>
+    </section>
+    <a id='retrieve' class='btn btn-primary' style='float: right;'>Retrieve License</a>
+  </body>
+</html>
