@@ -15,28 +15,97 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 		<script src='/app/common/jquery-2.1.1.min.js'></script>
+		<script src='https://vysor-1026.appspot.com/_ah/channel/jsapi'></script>
+		<script src='share.js'></script>
 		<script>
+
 		$(document).ready(function() {
-			$('.connect-button').click(function() {
-				var accessCode = window.location.hash.replace('#', '');
-				$.ajax({
-					url: 'https://inkwire-6c41e.appspot.com/register',
-					data: {
-						key: accessCode
-					},
-					success: function(data) {
-						var registrationId = data.data.registrationId;
-						window.location = '/app/screen.html?mode=inkwire&registrationId=' + encodeURIComponent(registrationId) + '&channel=' + accessCode;
-					}
-				})
-			})
+			if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())){
+				$('.chrome-required').hide();
+				var hashCode = window.location.hash.replace('#', '');
+				$('input').val(hashCode);
+
+				function doClick() {
+					var accessCode = $('input').val().replace(' ', '');
+					$.ajax({
+						url: 'https://inkwire-6c41e.appspot.com/register',
+						data: {
+							key: accessCode
+						},
+						success: function(data) {
+							if (!data.data) {
+								$('#code-result').text('The session was not found or has expired.')
+								return;
+							}
+							var registrationId = data.data.registrationId;
+							window.location = '/app/screen.html?mode=inkwire&registrationId=' + encodeURIComponent(registrationId) + '&channel=' + accessCode;
+						},
+						error: function() {
+							$('#code-result').text('Error contacting server.')
+						}
+					})
+				}
+
+				$('.inkwire-invite').hide();
+				if (!hashCode || !hashCode.length) {
+					$('#initial-text').html('Ask the user whose Android you wish to access<br/>to click Share and give you the access code.')
+
+					GcmManager.start({
+						'3505780036': 'AIzaSyDt0GimPRhk8_d_4XjOYzQUn50UkvXhMtE',
+					}, function(gcm) {
+						gcm.onMessage = function(data) {
+							if (data.type == 'access_code') {
+								$('input').val(data.access_code);
+								doClick();
+							}
+						}
+
+						$.ajax({
+							method: 'post',
+							url: 'https://inkwire-6c41e.appspot.com/register',
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							data: JSON.stringify({
+								registrationId: gcm.registrationId
+							}),
+							success: function(data) {
+								$('.inkwire-invite').show();
+								var key = data.key;
+								var intentLink = "https://inkwire.io/access#" + key;
+								var link = "https://tu3ph.app.goo.gl/?ad=0&apn=com.koushikdutta.inkwire&link=" + encodeURIComponent(intentLink);
+
+								$('.inkwire-access').click(function() {
+									copyTextToClipboard(link);
+								})
+							},
+							error: function() {
+								console.error('error registering', arguments);
+							}
+						})
+					})
+				}
+
+				$('.inkwire-connect').click(doClick)
+			}
+			else {
+				$('.inkwire-connect').hide();
+				$('.inkwire-invite').hide();
+				$('.inkwire-bottom').hide();
+			}
 		})
+
 		</script>
 	</head>
 
 	<style>
 	#main .avatar img {
 		border-radius: 0;
+	}
+	#code-result {
+		color: red;
+	}
+	input {
+		text-align: center;
 	}
 	</style>
 	<body class="is-loading">
@@ -49,13 +118,24 @@
 						<header>
 							<span class="avatar"><img src="/images/avatar.jpg" alt="" /></span>
 							<h1>Inkwire</h1>
-							<p>Someone wants to share their Android screen with you</p>
+							<p id='initial-text'>Someone wants to share their Android screen with you</p>
+							<p class='chrome-required'>Please open this link on Android or Chrome Desktop</p>
 						</header>
 						<footer>
 							<ul class="icons">
-								<li><a class="connect-button fa-android">Connect</a></li>
+								<li class="inkwire-connect"><a class="fa fa-android">Android</a></li>
+								<li class="chrome-required"><a class="fa fa-chrome">Chrome</a></li>
+								<li class="chrome-required"><a class="fa fa-android">Android</a></li>
 							</ul>
-							<p><a class='connect-button'>View Android</a></p>
+							<div class='inkwire-bottom'>
+								<p>Access Code</p>
+								<input type="text" onkeypress='$("#code-result").text("&nbsp;"); return event.charCode >= 48 && event.charCode <= 57'>
+								<p id='code-result'>&nbsp;</p>
+								<p><button class='inkwire-connect'>View Android</button></p>
+								<br/>
+								<p class='inkwire-invite'>Or invite them to share their screen with a link:</p>
+								<p><button class='inkwire-invite inkwire-access'>Copy Link</button></p>
+							</div>
 						</footer>
 					</section>
 
