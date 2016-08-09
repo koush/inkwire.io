@@ -20,9 +20,13 @@
 		<script>
 
 		$(document).ready(function() {
-			if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())){
+			var hashCode = window.location.hash.replace('#', '');
+
+			if(false && /chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
+				if (!hashCode || !hashCode.length)
+					$('#initial-text').html('Ask the user whose Android you wish to access<br/>to click Share and give you the access code.')
+
 				$('.chrome-required').hide();
-				var hashCode = window.location.hash.replace('#', '');
 				$('input').val(hashCode);
 
 				function doClick() {
@@ -48,8 +52,6 @@
 
 				$('.inkwire-invite').hide();
 				if (!hashCode || !hashCode.length) {
-					$('#initial-text').html('Ask the user whose Android you wish to access<br/>to click Share and give you the access code.')
-
 					GcmManager.start({
 						'3505780036': 'AIzaSyDt0GimPRhk8_d_4XjOYzQUn50UkvXhMtE',
 					}, function(gcm) {
@@ -88,6 +90,9 @@
 				$('.inkwire-connect').click(doClick)
 			}
 			else {
+				if (!hashCode || !hashCode.length)
+					$('#initial-text').html('Inkwire screen sharing is not supported on this browser.')
+
 				$('.inkwire-connect').hide();
 				$('.inkwire-invite').hide();
 				$('.inkwire-bottom').hide();
