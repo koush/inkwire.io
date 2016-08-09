@@ -22,7 +22,7 @@
 		$(document).ready(function() {
 			var hashCode = window.location.hash.replace('#', '');
 
-			if(false && /chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
+			if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
 				if (!hashCode || !hashCode.length)
 					$('#initial-text').html('Ask the user whose Android you wish to access<br/>to click Share and give you the access code.')
 
