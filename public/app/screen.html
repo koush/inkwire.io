@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
     <meta charset="utf-8">
     <title>Vysor</title>
@@ -122,28 +122,39 @@
         text-align: center;
       }
     </style>
-    <script src='common/jquery-2.1.1.min.js' type='text/javascript'></script>
-    <script src="bootstrap/js/bootstrap.min.js" type='text/javascript'></script>
+    <script src='common/jquery-2.1.1.min.js'></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="vysor-defaults.js" type='text/javascript'></script>
+    <script src="vysor-defaults.js"></script>
+    <script src='md5.js'></script>
 
-    <script src='util.js' type='text/javascript'></script>
-    <script src='bytebuffer.js' type='text/javascript'></script>
-    <script src='socket/socket.js' type='text/javascript'></script>
-    <script src='socket/fetch.js' type='text/javascript'></script>
-    <script src='socket/filesocket.js' type='text/javascript'></script>
-    <script src='socket/gcmsocket.js' type='text/javascript'></script>
-    <script src='adb/adb-client.js' type='text/javascript'></script>
-    <script src='device-settings.js' type='text/javascript'></script>
-    <script src='modal.js' type='text/javascript'></script>
-    <script src='socket/dummysocket.js' type='text/javascript'></script>
-    <script src='flash.js' type='text/javascript'></script>
-    <script src='screen.js' type='text/javascript'></script>
+    <script src='util.js'></script>
+    <script src='bytebuffer.js'></script>
+    <script src='socket/socket.js'></script>
+    <script src='socket/fetch.js'></script>
+    <script src='socket/filesocket.js'></script>
+    <script src='socket/gcmsocket.js'></script>
+    <script src='socket/dummysocket.js'></script>
 
-    <script src='video_decode/common.js' type='text/javascript'></script>
+    <script src='adb/adb-client.js'></script>
+    <script src='device-settings.js'></script>
+    <script src='modal.js'></script>
+
+    <script src='cast/protobuf.min.js'></script>
+    <script src='cast/aes.js'></script>
+    <script src='cast/rtp.js'></script>
+    <script src='cast/cast_message.js'></script>
+    <script src='cast/audio_queue.js'></script>
+    <script src='cast/cast_server.js'></script>
+
+    <script src='flash.js'></script>
+    <script src='video_decode/pepper.js'></script>
+    <script src='video_decode/common.js'></script>
+
+    <script src='screen.js'></script>
 
     <!-- dirty hack -->
-    <script src='uglify-screen.js' type='text/javascript'></script>
+    <script src='uglify-screen.js'></script>
   </head>
 
   <body>
@@ -248,6 +259,7 @@
                 </div>
               </div>
 
+
               <div id='display-settings-container'>
                 <label>Display Settings</label>
                 <div class='well'>
@@ -263,11 +275,24 @@
                 </div>
               </div>
 
+              <div id='audio-settings-container'>
+                <label>Audio Settings</label>
+                <div class='well'>
+                  <div class="checkbox">
+                    <label>
+                      <input id='auto-audio' type="checkbox"> Mute Android and Mirror Audio Automatically
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label>Status</label>
                 <div class='well'>
                   <label>Web Video Stream</label>
                   <p><a id='web-video-stream'></a></p>
+                  <label>Web Audio Stream</label>
+                  <p><a id='web-audio-stream'></a></p>
                 </div>
               </div>
             </form>
@@ -286,7 +311,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id='modal-title'></h4>
+            <h4 class="modal-title" id='modal-title'>Modal</h4>
           </div>
           <div class="modal-body">
             <p id='modal-body'></p>
