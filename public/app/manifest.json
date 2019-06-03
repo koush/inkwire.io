@@ -2,7 +2,7 @@
   "name": "Vysor",
   "short_name": "Vysor",
   "description": "A window to your Android",
-  "version": "2.0.8",
+  "version": "2.1.7",
   "author": "ClockworkMod",
   "minimum_chrome_version": "51",
   "sockets": {
@@ -66,6 +66,10 @@
     }
   },
   "nacl_modules": [
+    {
+      "path": "native/audio_playback.nmf",
+      "mime_type": "application/x-ppapi-vysor-audio"
+    },
     {
       "path": "native/video_decode.nmf",
       "mime_type": "application/x-ppapi-vysor"
