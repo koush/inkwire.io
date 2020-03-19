@@ -112,31 +112,18 @@ GcmManager.prototype.sendGcm = function(senderId, registrationId, dstPort, srcPo
   }
 }
 GcmManager.start = function(senders, cb) {
-  $.ajax({
-      type: 'GET',
-      url: "https://vysor-1026.appspot.com/listen",
-      success: function(data) {
-        // console.log(data);
+  var socket = io("https://push.clockworkmod.com");
+  // socket.emit('register');
+  socket.on('registration', function(registrationId) {
+    registrationId = 'web:' + registrationId;
+    var gcm = new GcmManager(senders, registrationId);
+    var self = gcm;
 
-        var gcm;
-        var channel = new goog.appengine.Channel(data.token);
-        var handler = {
-          'onopen': function() {
-            gcm = new GcmManager(senders, 'web:' + data.channel);
-            cb(gcm);
-          },
-          'onmessage': function(data) {
-            gcm.onMessage(JSON.parse(data.data));
-          },
-          'onerror': function() {
-            console.log('error', arguments);
-          },
-          'onclose': function() {
-            console.log('onclose', arguments);
-          }
-        };
-
-        var socket = channel.open(handler);
-      }
-  });
+    socket.on('data', (data) => {
+      self.onMessage(data)
+    })
+  
+    self.registrationId = registrationId;
+    cb(self);
+  })
 }

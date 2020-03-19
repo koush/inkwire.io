@@ -14,15 +14,16 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
-		<script src='/app/common/jquery-2.1.1.min.js'></script>
+		<script src='/app/jquery-2.1.1.min.js'></script>
 		<script src='https://vysor-1026.appspot.com/_ah/channel/jsapi'></script>
 		<script src='share.js'></script>
+		<script src='//push.clockworkmod.com/socket.io/socket.io.js'></script>
 		<script>
 
 		$(document).ready(function() {
 			var hashCode = window.location.hash.replace('#', '');
 
-			if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
+			if(true || /chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) {
 				if (!hashCode || !hashCode.length)
 					$('#initial-text').html('Ask the user whose Android you wish to access<br/>to click Share and give you the access code.')
 

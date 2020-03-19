@@ -122,42 +122,21 @@
         text-align: center;
       }
     </style>
-    <script src='common/jquery-2.1.1.min.js'></script>
+    <script src='jquery-2.1.1.min.js'></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="jsencrypt.js"></script>
 
-    <script src="vysor-defaults.js"></script>
     <script src='md5.js'></script>
 
-    <script src="require.js" type="text/javascript"></script>
-    <script src='util.js'></script>
-    <script src='bytebuffer.js'></script>
-    <script src='socket/socket.js'></script>
-    <script src='socket/fetch.js'></script>
-    <script src='socket/filesocket.js'></script>
-    <script src='socket/gcmsocket.js'></script>
-    <script src='socket/dummysocket.js'></script>
-
-    <script src='adb/adb-client.js'></script>
-    <script src='device-settings.js'></script>
-    <script src='modal.js'></script>
-
     <script src='cast/protobuf.min.js'></script>
+    <script src='cast/cast-message.js'></script>
     <script src='cast/aes.js'></script>
-    <script src='cast/rtp.js'></script>
-    <script src='cast/cast_message.js'></script>
-    <script src='cast/audio_queue.js'></script>
-    <script src='cast/cast_server.js'></script>
 
-    <script src='flash.js'></script>
     <script src='video_decode/common.js'></script>
-    <script src='video_decode/pepper.js'></script>
     <script src='audio_playback/common.js'></script>
-    <script src='audio_playback/pepper.js'></script>
 
+    <script src='vysor-defaults.js'></script>
     <script src='screen.js'></script>
-
-    <!-- dirty hack -->
-    <script src='uglify-screen.js'></script>
   </head>
 
   <body>
@@ -247,9 +226,10 @@
                   <br/>
                   <label>Decoder</label>
                   <select id='decoder' class="form-control">
-                    <option>Software (Recommended)</option>
-                    <option>Hardware</option>
-                    <option>Hardware with fallback</option>
+                    <option>Native Software (Recommended)</option>
+                    <option>Native Hardware</option>
+                    <option>Native Hardware with fallback</option>
+                    <option>WebAssembly</option>
                   </select>
 
                   <br/>
