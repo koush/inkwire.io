@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
-    if (req.path.endsWith('.asset'))
+    if (req && req.path && req.path.endsWith('.asset'))
         res.contentType('application/wasm')
     next();
 });
