@@ -43,7 +43,7 @@
 								return;
 							}
 							var registrationId = data.data.registrationId;
-							window.location = '/app/screen.html?mode=inkwire&registrationId=' + encodeURIComponent(registrationId) + '&channel=' + accessCode;
+							window.location = 'https://app.vysor.io/#/remote-device/' + encodeURIComponent(registrationId) + '/' + accessCode;
 						},
 						error: function() {
 							$('#code-result').text('Error contacting server.')
